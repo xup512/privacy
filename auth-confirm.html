@@ -27,7 +27,15 @@
     text-align: center;
     box-shadow: 0 2px 16px rgba(0,0,0,0.07);
   }
-  .emoji { font-size: 52px; line-height: 1; margin-bottom: 16px; }
+  .icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 18px;
+    display: block;
+    margin: 0 auto 18px;
+    object-fit: cover;
+  }
+  .emoji { font-size: 48px; line-height: 1; margin-bottom: 16px; }
   h1 { font-size: 22px; font-weight: 800; margin: 0 0 12px; color: #111827; }
   p { font-size: 15px; font-weight: 500; line-height: 1.7; color: #4B5563; margin: 0 0 8px; }
   .btn {
@@ -60,7 +68,7 @@
 
   <!-- 성공 -->
   <div class="card" id="ok">
-    <div class="emoji">🦦</div>
+    <img class="icon" id="appIcon" src="play_store_icon_512.png" alt="나는">
     <h1>이메일 인증이 완료되었습니다</h1>
     <p>아래 버튼을 눌러 앱으로 돌아가<br>로그인해 주세요.</p>
     <a class="btn" id="openApp" href="naneun://auth/confirm">앱으로 돌아가기</a>
@@ -82,6 +90,12 @@
 
 <script>
 (function () {
+  // 아이콘 파일이 없거나 못 불러오면 깨진 이미지 대신 그냥 숨긴다.
+  var icon = document.getElementById("appIcon");
+  if (icon) {
+    icon.onerror = function () { icon.style.display = "none"; };
+  }
+
   // Supabase는 실패 시 #error=... 또는 ?error=... 형태로 알려준다.
   var hash   = (location.hash || "").replace(/^#/, "");
   var search = (location.search || "").replace(/^\?/, "");
